@@ -4,7 +4,11 @@ DataContext d;
 while (true)
 {
     SystemWrite("Connection String:\n");
+
+    Console.ForegroundColor = Console.BackgroundColor = ConsoleColor.Black;
     var server = Console.ReadLine();
+
+    Console.ResetColor();
 
     d = new DataContext(server);
 
