@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Data.Entity.Core.Mapping;
-using System.Text.Json.Serialization;
 
-namespace SimpleSqlServerQueryRunner
+namespace Shared
 {
     public class DataContext : DbContext
     {
@@ -48,7 +45,7 @@ namespace SimpleSqlServerQueryRunner
             return Database.SqlQueryRaw<string>("select CONCAT(COLUMN_NAME, '(', DATA_TYPE,')') from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='" + tableName + "'").ToArray<string>();
         }
 
-        internal List<string> Run(string sql)
+        public List<string> Run(string sql)
         {
             if (sql.ToLower().StartsWith("select"))
             {

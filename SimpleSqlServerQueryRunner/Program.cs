@@ -1,4 +1,4 @@
-﻿using SimpleSqlServerQueryRunner;
+﻿using Shared;
 
 DataContext d;
 while (true)
