@@ -1,0 +1,79 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-2">
+                <label asp-for="ConnectionString">Connection string:</label>
+            </div>
+            <div class="col-sm-10">
+                <input asp-for="ConnectionString" />
+            </div>
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 text-center">
+                <button type="submit">Check connecion</button>
+                @if (Model.ConnectionStatus)
+                {
+                    <input readonly asp-for="ConnectionStatus" checked="checked" />
+                }
+            </div>
+        </div>
+    </form>
+
+    @if (IndexModel._context != null)
+    {
+
+        <form asp-page-handler="tables" method="post">
+            <button type="submit">Get Tables</button>
+        </form>
+
+        @if (Model.Tables != null && Model.Tables.Count() > 0)
+        {
+            <b>Tables:</b>
+            foreach (var item in Model.Tables)
+            {
+
+                <a asp-page-handler="table" asp-route-tablename="@item">@item</a>
+                <br />
+            }
+        }
+
+        @if (Model.TableSchema != null && Model.TableSchema.Count() > 0)
+        {
+            <b>Table Schema:</b>
+            foreach (var item in Model.TableSchema)
+            {
+
+                <label >@item</label>
+                <br />
+            }
+        }
+
+        <form asp-page-handler="query" method="post">
+            <input asp-for="SqlQuery" />
+            <button type="submit">Run Query</button>
+        </form>
+
+        <div class="row">
+            @if (Model.TableData != null && Model.TableData.Count() > 0)
+            {
+                foreach (var item in Model.TableData)
+                {
+                    <div class="col-sm-12">
+                        <label>@item</label>
+                    </div>
+                }
+            }
+        </div>
+
+    }
+</div>
