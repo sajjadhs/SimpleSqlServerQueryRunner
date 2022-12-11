@@ -6,7 +6,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
- 
+
 
     <form method="post">
         <div class="row">
@@ -53,7 +53,7 @@
             foreach (var item in Model.TableSchema)
             {
 
-                <label >@item</label>
+                <label>@item</label>
                 <br />
             }
         }
@@ -66,12 +66,21 @@
         <div class="row">
             @if (Model.TableData != null && Model.TableData.Count() > 0)
             {
-                foreach (var item in Model.TableData)
+                @foreach (var item in Model.TableData)
                 {
-                    <div class="col-sm-12">
-                        <label>@item</label>
-                    </div>
+                    var rows = item.ToString().Split(",{", StringSplitOptions.None);
+                    <table class="table" border="1">
+                        @foreach (var row in rows)
+                        {
+                            <tr>
+                                <td>
+                                    @row
+                                </td>
+                            </tr>
+                        }
+                    </table>
                 }
+
             }
         </div>
 
